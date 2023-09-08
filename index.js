@@ -74,6 +74,37 @@ const pool = mysql.createPool({
 
 // TODO: Create a function to add an employee
 // CRITERIA: Create a prompt to enter the first name, last name, role, manager and add them to the db
+async function addEmployee(firstName, lastName, roleId, managerId) {
+  const connection = await pool.getConnection();
+
+  try {
+    await connection.beginTransaction();
+
+    const [rows] = await connection.execute(
+      'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)',
+      [firstName, lastName, roleId, managerId]
+    );
+
+    await connection.commit();
+
+    return {
+      id: rows.insertId,
+      firstName,
+      lastName,
+      roleId,
+      managerId,
+    };
+  } catch (error) {
+    await connection.rollback();
+    throw error;
+  } finally {
+    connection.release();
+  }
+}
+
+module.exports = {
+  addEmployee,
+};
 
 // TODO: Create a function to update an employee role
 // CRITERIA: Create a prompt to select an employee to update and then update the db
