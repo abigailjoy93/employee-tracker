@@ -68,9 +68,67 @@ const pool = mysql.createPool({
 
 // TODO: Create a function to add a department
 // CRITERIA: Create a prompt to enter the name of the department and have that department added to the DB
+async function addDepartment(departmentName) {
+  const connection = await pool.getConnection();
+
+  try {
+    await connection.beginTransaction();
+
+    const [rows] = await connection.execute(
+      'INSERT INTO department (department_name) VALUES (?)',
+      [departmentName]
+    );
+
+    await connection.commit();
+
+    return {
+      id: departmentName.insertId,
+      departmentName,
+    };
+  } catch (error) {
+    await connection.rollback();
+    throw error;
+  } finally {
+    connection.release();
+  }
+}
+
+module.exports = {
+  addDepartment,
+};
 
 // TODO: Create a function to add a role
 // CRITERIA: Create a prompt to enter the name, salary, and department and add it to the db
+async function addRole(roleName, roleSalary, roleDepartment) {
+  const connection = await pool.getConnection();
+
+  try{
+    await connection.beginTransaction();
+
+    const [rows] = await connection.execute(
+      'INSERT INTO role (role_name, role_salary, role_department) VALUES (?, ?, ?)',
+      [roleName, roleSalary, roleDepartment]
+    );
+
+    await connection.commit();
+
+    return {
+      id: rows.insertId,
+      roleName,
+      roleSalary,
+      roleDepartment,
+    };
+  } catch (error) {
+    await connection.rollback();
+    throw error;
+  } finally {
+    connection.release();
+  }
+}
+
+module.exports = {
+  addRole,
+};
 
 // TODO: Create a function to add an employee
 // CRITERIA: Create a prompt to enter the first name, last name, role, manager and add them to the db
