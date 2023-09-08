@@ -34,6 +34,16 @@ async function viewDepartments() {
 
 // TODO: Create a function to view all roles
 // CRITERIA: List job title, role id, department, salary
+async function viewRoles() {
+  try {
+    const roles = await queryAsync("SELECT * FROM roles");
+    console.log(roles);
+    startApplication();
+  } catch (err) {
+    console.error("Error accessing roles:", err);
+    startApplication();
+  }
+}
 
 // TODO: Create a function to view all employees
 // CRITERIA: Present a formatted table showing employee id, first name, last name, job title, department, salary, manager
@@ -49,3 +59,5 @@ async function viewDepartments() {
 
 // TODO: Create a function to update an employee role
 // CRITERIA: Create a prompt to select an employee to update and then update the db
+
+// TODO: Create a startApplication function that displays the main menu
