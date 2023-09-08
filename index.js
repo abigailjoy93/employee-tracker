@@ -57,6 +57,15 @@ async function viewEmployees() {
   }
 }
 
+
+// Created a MySQL connection pool
+const pool = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  password: "password",
+  database: "company_db",
+});
+
 // TODO: Create a function to add a department
 // CRITERIA: Create a prompt to enter the name of the department and have that department added to the DB
 
