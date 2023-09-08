@@ -166,6 +166,35 @@ module.exports = {
 
 // TODO: Create a function to update an employee role
 // CRITERIA: Create a prompt to select an employee to update and then update the db
+async function updateRole(employeeId, newRoleId) {
+  const connection = await pool.getConnection();
+
+  try {
+    await connection.beginTransaction();
+
+    const [rows] = await connection.execute(
+      'UPDATE employee SET role_id = ? WHERE id = ?',
+      [newRoleId, employeeId]
+    );
+
+    await connection.commit();
+
+    if (rows.affectedRows === 0) {
+      throw new Error('Employee not found or role update failed.');
+    }
+
+    return 'Employee role updated successfully';
+  } catch (error) {
+    await connection.rollback();
+    throw error;
+  } finally {
+    connection.release();
+  }
+}
+
+module.exports = {
+  updateRole,
+};
 
 // TODO: Create a startApplication function that displays the main menu
 function startApplication() {
