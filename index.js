@@ -47,6 +47,15 @@ async function viewRoles() {
 
 // TODO: Create a function to view all employees
 // CRITERIA: Present a formatted table showing employee id, first name, last name, job title, department, salary, manager
+async function viewEmployees() {
+  try {
+    const employees = await queryAsync("SELECT * FROM employees");
+    console.table(employees);
+    startApplication();
+  } catch (err) {
+    console.error("Error veiwing employees:", err);
+  }
+}
 
 // TODO: Create a function to add a department
 // CRITERIA: Create a prompt to enter the name of the department and have that department added to the DB
