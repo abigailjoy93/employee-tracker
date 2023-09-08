@@ -1,0 +1,30 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "an application to assist in managing the departments, roles, and employees in a company",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abigailjoy93/employee-tracker.git"
+  },
+  "keywords": [
+    "employee",
+    "tracker"
+  ],
+  "author": "Abigail Joy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abigailjoy93/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/abigailjoy93/employee-tracker#readme",
+  "dependencies": {
+    "inquirer": "^9.2.10",
+    "mysql2": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.9"
+  }
+}
